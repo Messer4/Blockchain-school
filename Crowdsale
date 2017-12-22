@@ -29,15 +29,11 @@ contract Crowdsale is Ownable {
         restricted = msg.sender;
         restrictedPercent = 30;
         rate = 210;
-        start = 1513501200; //1513674000;
-        period = 30;
-        hardcap = 10000000000000000000000;
+        hardcap = 350000;
+        discount = 20;
     }
 
-    modifier saleIsOn() {
-    	require(now > start && now < start + period * 1 days);
-    	_;
-    }
+   
 	
     modifier isUnderHardCap() {
         require(multisig.balance <= hardcap);
@@ -51,10 +47,10 @@ contract Crowdsale is Ownable {
         token.finishMinting();
     }
 
-    function createTokens() isUnderHardCap saleIsOn payable {
+    function createTokens() isUnderHardCap payable {
         multisig.transfer(msg.value);
-        uint time=(now-start).div(86400);
-        uint q = time.mul(20).div(30);
+       
+        uint q = token.totalSupply.div(17500);
         rate = rate.mul(120 - q).div(100);
         uint tokens = rate.mul(msg.value).div(1 ether);
         token.mint(msg.sender, tokens);
