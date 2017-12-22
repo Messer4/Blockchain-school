@@ -1,0 +1,19 @@
+pragma solidity ^0.4.13;
+
+import "StandartToken"
+import "Ownable"
+
+
+
+contract MintableToken is StandardToken, Ownable {
+    
+  event Mint(address indexed to, uint256 amount);
+  
+  event MintFinished();
+
+  bool public mintingFinished = false;
+
+  modifier canMint() {
+    require(!mintingFinished);
+    _;
+  }

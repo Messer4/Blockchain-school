@@ -1,0 +1,14 @@
+pragma solidity ^0.4.13;
+
+import "MintableToken"
+
+
+contract SimpleTokenCoin is MintableToken {
+    
+    string public constant name = "Jury Token";
+    
+    string public constant symbol = "JOT";
+    
+    uint32 public constant decimals = 6;
+    
+}
